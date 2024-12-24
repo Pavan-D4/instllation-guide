@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-nodeselector
+spec:
+  nodeSelector:
+    zone: ap-south-1b
+  containers:
+  - name: nginx
+    image: nginx
+    ports:
+    - containerPort: 80

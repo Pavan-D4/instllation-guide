@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: welcome-home-app
+  labels:
+    app: welcome-home
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: welcome-home
+  template:
+    metadata:
+      labels:
+        app: welcome-home
+    spec:
+      containers:
+        - name: welcome-home-container
+          image: pavand4/welcome-home-app:67
+          ports:
+            - containerPort: 8080 

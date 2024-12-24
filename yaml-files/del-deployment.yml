@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: delete-temp-app
+  labels:
+    app: delete-nginx-app
+  namespace: qa
+  annotations: 
+    description: "delete this app once created sccessfully"
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: delete-nginx-app
+  template:
+    metadata:
+      labels:
+        app: delete-nginx-app
+    spec:
+      containers:
+      - name: dummy-app
+        image: nginx:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        env:
+        - name: ENVIRONMENT
+          value: prod
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 1
+        
